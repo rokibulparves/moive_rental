@@ -1,19 +1,23 @@
-import Footer from "./Footer";
-import Header from "./Header";
-import Sidebar from "./Sidebar";
-import MovieList from "./cine/MovieList";
+import { useReducer, useState } from "react";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import Page from "./Page";
+import { MovieContext } from "./context/movieContext";
+import { ThemeContext } from "./context/themeContext";
+import { cartReducer, initialState } from "./reducers/CartReducer";
 
 function App() {
+  const [dark, setDark] = useState(true);
+  const [state, dispatch] = useReducer(cartReducer, initialState);
+
   return (
     <>
-      <Header />
-      <main>
-        <div className="container grid lg:grid-cols-[218px_1fr] gap-[3.5rem]">
-          <Sidebar />
-          <MovieList />
-        </div>
-      </main>
-      <Footer />
+      <ThemeContext.Provider value={{ dark, setDark }}>
+        <MovieContext.Provider value={{ state, dispatch }}>
+          <Page />
+          <ToastContainer />
+        </MovieContext.Provider>
+      </ThemeContext.Provider>
     </>
   );
 }

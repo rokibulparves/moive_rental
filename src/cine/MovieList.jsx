@@ -1,6 +1,6 @@
 import { getAllMovies } from "../data/movies";
-
 import MovieCard from "./MovieCard";
+
 export default function MovieList() {
   const movies = getAllMovies();
   return (
